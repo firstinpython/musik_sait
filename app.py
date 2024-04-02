@@ -5,13 +5,10 @@ from data.users import User
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'flflflffl'
 
-@app.route("/")
+@app.route("/ok")
 def main():
-    db_session.global_init("db/blogs.db")
-    db_sess = db_session.create_session()
-    user = db_sess.query(User).all()
     title = "Musik"
-    return render_template('main.html',usernames = user)
+    return render_template('main.html')
 
 @app.route("/login")
 def login():
@@ -36,9 +33,6 @@ def register():
 def admin():
     return render_template("admin.html")
 
-@app.errorhandler(404)
-def not_found(error):
-    return "ничего не нашлось"
 
 if __name__ == "__main__":
-    app.run(port=8080, host='127.0.0.1')
+    app.run(port=8080, host='127.0.0.1',debug=True)
