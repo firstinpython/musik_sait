@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Подключение CSS файла bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body class="bg-primary bg-opacity-25">
+<section>
+    <div
+            class="d-flex flex-column min-vh-100 justify-content-center"
+    >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-5 mx-auto bg-white rounded shadow">
+                        <div class="col-md-12">
+                            <div class="m-5 text-center"><h1>Welcome!</h1></div>
+                            <form class="m-5">
+                                <div class="mb-3">
+                                    <label class="form-label" for="username">Username</label>
+                                    <input class="form-control" type="text" id="username"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="password">Password</label>
+                                    <input
+                                            class="form-control"
+                                            type="password"
+                                            id="password"
+                                    />
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <div class="form-check text-start">
+                                            <input
+                                                    class="form-check-input"
+                                                    type="checkbox"
+                                                    id="remember-me"
+                                            />
+                                            <label class="form-check-label" for="remember-me"
+                                            >Remember Me</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-end">
+                                            <a href="#">Forgot Password?</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <input
+                                            type="submit"
+                                            class="form-control btn btn-primary mt-3"
+                                    />
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Подключение JS файла bootstrap 5 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
