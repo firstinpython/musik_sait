@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,url_for,session
+from flask import Flask,render_template,request,redirect,url_for,session,flash
 from data import db_session
 from data.users import User
 from data.musiks import Musiks
@@ -59,17 +59,17 @@ def admin():
     return render_template("admin.html")
 @app.route("/user", methods=["POST","GET"])
 def user():
-    print(session["name"])
     if "name" in session:
         name = session["name"]
         if request.method == "POST":
             file = request.files['file']
             if mp_val(file.filename) == "yes":
-                upload = Musiks(name_musiks="koroll",file_musiks=file.filename)
+                upload = Musiks(name_musiks=request.form["name"],file_musiks=file.filename)
                 db_sess = db_session.create_session()
                 db_sess.add(upload)
                 db_sess.commit()
             else:
+                flash("файл должен быть с расширением mp3")
                 print("no")
         return render_template("user.html", name=name)
 
