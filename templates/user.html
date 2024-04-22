@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{%block main%}
+<p>{{name}}</p><br>
 
-</body>
-</html>
+<form method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type = "submit" name = "but">
+</form>
+{%endblock%}

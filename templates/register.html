@@ -16,54 +16,48 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-md-5 mx-auto bg-white rounded shadow">
-                        <div class="col-md-12">
-                            <div class="m-5 text-center"><h1>Welcome!</h1></div>
-                            <form class="m-5" METHOD="post" action="/register">
-                                <div class="mb-3">
-                                    <label class="form-label" for="username">Username</label>
-                                    <input class="form-control" type="text" id="username"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="email">Email</label>
-                                    <input class="form-control" type="text" id="email"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="password">Password</label>
-                                    <input
-                                            class="form-control"
-                                            type="password"
-                                            id="password"
-                                    />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="code">Code</label>
-                                    <input class="form-control" type="text" id="code"/>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-6">
-                                        <div class="form-check text-start">
-                                            <input
-                                                    class="form-check-input"
-                                                    type="checkbox"
-                                                    id="remember-me"
-                                            />
-                                            <label class="form-check-label" for="remember-me"
-                                            >I agree that</label
-                                            >
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="">
-                                    <input
-                                            type="submit"
-                                            class="form-control btn btn-primary mt-3"
-
-                                    />
-                                </div>
-                            </form>
-                        </div>
+                    <div class="col-md-12">
+                        <div class="m-5 text-center"><h1>Welcome!</h1></div>
+                        <form class="m-5" method="post">
+                            <div class="mb-3">
+                                <label class="form-label" for="username">Username</label>
+                                <input class="form-control" type="text" name="username" id="username"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="email">Email</label>
+                                <input class="form-control" type="text" name="email" id="email"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="password">Password</label>
+                                <input
+                                        class="form-control"
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="code">Code</label>
+                                <input class="form-control" type="text" id="code"/>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Dropdown button
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </div>
+                            <div class="">
+                                <input
+                                        type="submit"
+                                        class="form-control btn btn-primary mt-3"/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
