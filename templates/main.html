@@ -8,15 +8,13 @@
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
-            {% for mus in range(10) %}
+            {% for mus in musik %}
             <div class="col">
                 <div class="card shadow-sm">
                     <img src="photo.jpeg" class="bd-placeholder-img card-img-top" width="100%" height="225"
                          alt="Placeholder image">
                     <div class="card-body">
-                        <p class="card-text"><a href="#">This is a wider card with supporting text below as a natural lead-in to
-                            additional
-                            content. This content is a little bit longer.</a></p>
+                        <p class="card-text"><a href="#">{{mus}}</a></p>
 
                     </div>
                 </div>

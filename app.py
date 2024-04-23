@@ -1,25 +1,29 @@
+import os.path
+
 from flask import Flask,render_template,request,redirect,url_for,session,flash
 from data import db_session
 from data.users import User
 from data.musiks import Musiks
-from validators import mp_val
+from validators import mp_val,random_musik
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'flflflffl'
-
+UPLOAD_FOLDER = '/musik/'
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route("/")
 def main():
     db_sess = db_session.create_session()
     user = db_sess.query(User).all()
     musik = db_sess.query(Musiks).all()
-    print(session)
+    print(musik)
+    musik_mass = random_musik(musik)
     if "name" in session:
         title = "Voshel"
         print("ok")
     else:
         title = "Musik"
         print("ne ok")
-    return render_template('main.html',usernames = user,musik = musik)
+    return render_template('main.html',usernames = user,musik = musik_mass)
 
 @app.route("/login",methods = ["POST","GET"])
 def login():
@@ -68,6 +72,8 @@ def user():
                 db_sess = db_session.create_session()
                 db_sess.add(upload)
                 db_sess.commit()
+                filename = file.filename
+                file.save(f'C:\\Users\\ntr07\PycharmProjects\musik_sait\musik\\{filename}')
             else:
                 flash("файл должен быть с расширением mp3")
                 print("no")
