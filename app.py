@@ -5,25 +5,31 @@ from data import db_session
 from data.users import User
 from data.musiks import Musiks
 from validators import mp_val,random_musik
+from data.Like_musik import Musiks_Like
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'flflflffl'
 UPLOAD_FOLDER = '/musik/'
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-@app.route("/")
+@app.route("/",methods=["POST","GET"])
 def main():
     db_sess = db_session.create_session()
     user = db_sess.query(User).all()
     musik = db_sess.query(Musiks).all()
-    print(musik)
     musik_mass = random_musik(musik)
-    if "name" in session:
-        title = "Voshel"
-        print("ok")
+    print(db_sess.query(User).filter_by(like_musik_id=Musiks_Like.id).all())
+    if request.method == "POST":
+        like="f"
+        return render_template('main.html', usernames=user, musik=musik_mass, like=like)
     else:
-        title = "Musik"
-        print("ne ok")
-    return render_template('main.html',usernames = user,musik = musik_mass)
+        like="f"
+        if "name" in session:
+            title = "Voshel"
+            print("ok")
+        else:
+            title = "Musik"
+            print("ne ok")
+        return render_template('main.html',usernames = user,musik = musik_mass,like = like)
 
 @app.route("/login",methods = ["POST","GET"])
 def login():
@@ -88,6 +94,7 @@ def exit():
 @app.errorhandler(404)
 def not_found(error):
     return "ничего не нашлось"
+
 
 if __name__ == "__main__":
     db_session.global_init("db/blogs.db")

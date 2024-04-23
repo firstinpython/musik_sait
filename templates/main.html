@@ -15,7 +15,15 @@
                          alt="Placeholder image">
                     <div class="card-body">
                         <p class="card-text"><a href="#">{{mus}}</a></p>
-
+                        <div class="form-check">
+                            <form method="post">
+                            {% if like == "true"%}
+                                <button type="submit">/</button>
+                            {% else %}
+                                <button type="submit">//</button>
+                            {% endif %}
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

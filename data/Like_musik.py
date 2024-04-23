@@ -2,7 +2,7 @@ import datetime
 import sqlalchemy
 from .db_session import SqlalachemyBase
 
-class Musiks(SqlalachemyBase):
+class Musiks_Like(SqlalachemyBase):
     __tablename__ = "musiks_like"
 
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
