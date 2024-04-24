@@ -17,7 +17,6 @@ def main():
     user = db_sess.query(User).all()
     musik = db_sess.query(Musiks).all()
     musik_mass = random_musik(musik)
-    print(db_sess.query(User).filter_by(like_musik_id=Musiks_Like.id).all())
     if request.method == "POST":
         like="f"
         return render_template('main.html', usernames=user, musik=musik_mass, like=like)
@@ -26,6 +25,8 @@ def main():
         if "name" in session:
             title = "Voshel"
             print("ok")
+            user = db_sess.query(User).filter_by(name = session["name"]).first()
+            print(db_sess.query(Musiks_Like).filter_by(user_id=user.id).all())
         else:
             title = "Musik"
             print("ne ok")

@@ -11,5 +11,4 @@ class User(SqlalachemyBase):
     about = sqlalchemy.Column(sqlalchemy.String)
     email = sqlalchemy.Column(sqlalchemy.String, index=True, nullable=True, unique=True)
     hash_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    like_musik_id = sqlalchemy.Column(sqlalchemy.Integer,sqlalchemy.ForeignKey("musiks_like.id"))
     date = sqlalchemy.Column(sqlalchemy.DateTime, default=datetime.datetime.now)
