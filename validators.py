@@ -19,3 +19,10 @@ def random_musik(spisok):
         return mass_random
     else:
         return musik_mass
+
+def photo_val(file_name):
+    mass = file_name.split(".")
+    if mass[-1] not in ['png','jpeg','jpg','PNG']:
+        return "no"
+    else:
+        return "yes"

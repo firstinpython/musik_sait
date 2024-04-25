@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block user %}
+{% if stage_user == "sign"%}
+<ul class="dropdown-menu text-small" style="">
+    <li><a class="dropdown-item" href="/user">Profile</a></li>
+    <li>
+        <hr class="dropdown-divider">
+    </li>
+    <li><a class="dropdown-item" href="/exit">Sign out</a></li>
+</ul>
+{%else%}
+<ul class="dropdown-menu text-small" style="">
+    <li><a class="dropdown-item" href="/login">sign_up</a></li>
+</ul>
+{% endif %}
+{% endblock %}
+{% block main %}
+{% if user_musik %}
+{% for musik in user_musik %}
+<p>{{musik.name_musiks}}</p>
+{% endfor %}
+{% endif %}
+{% endblock %}

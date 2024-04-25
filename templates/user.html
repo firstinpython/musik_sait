@@ -1,12 +1,48 @@
 {% extends 'base.html' %}
+{% block user %}
+{% if stage_user == "sign"%}
+<ul class="dropdown-menu text-small" style="">
+    <li><a class="dropdown-item" href="/user">Profile</a></li>
+    <li>
+        <hr class="dropdown-divider">
+    </li>
+    <li><a class="dropdown-item" href="/exit">Sign out</a></li>
+</ul>
+{%else%}
+<ul class="dropdown-menu text-small" style="">
+    <li><a class="dropdown-item" href="/login">sign_up</a></li>
+</ul>
+{% endif %}
+{% endblock %}
 {%block main%}
-<p>{{name}}</p><br>
+<div class="container">
+<form class="needs-validation" novalidate="" method="post">
+    <div class="row g-3">
+        <div class="col-12">
+            <label for="username" class="form-label">Username</label>
+            <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="username" placeholder="Username" required="" wfd-id="id3">
+                <div class="invalid-feedback">
+                    Your username is required.
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="email" class="form-label">Email <span class="text-body-secondary">(Optional)</span></label>
+            <input type="email" class="form-control" id="email" placeholder="you@example.com" wfd-id="id4">
+            <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+            </div>
+        </div>
+    </div>
+</form>
 
 <div>
-
+    <br>
     <!-- Кнопка-триггер модального окна -->
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Запустить модальное окно со статическим фоном
+        Загрузить музыку
     </button>
 
     <!-- Модальное окно -->
@@ -20,17 +56,28 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" enctype="multipart/form-data">
-                        <input type="text" name="name">
-                        <input type="file" name="file">
-                        <input type="submit" name="but">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="floatingInput" name="name">
+                            <label for="floatingInput">Названние песни</label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="form1" class="form-label">Выберите файл</label>
+                            <input class="form-control" type="file" name = "file" id = "form1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="form2" class="form-label">Выберите файл</label>
+                            <input class="form-control" type="file" name = "photo" id="form2">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button type="submit" class="btn btn-primary" name="but">Отправить</button>
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary">Понял</button>
-                </div>
+
             </div>
         </div>
     </div>
+</div>
 </div>
 {%endblock%}

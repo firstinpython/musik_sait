@@ -2,6 +2,21 @@
 {%block title%}
 {{title}}
 {%endblock%}
+{% block user %}
+{% if stage_user == "sign"%}
+<ul class="dropdown-menu text-small" style="">
+    <li><a class="dropdown-item" href="/user">Profile</a></li>
+    <li>
+        <hr class="dropdown-divider">
+    </li>
+    <li><a class="dropdown-item" href="/exit">Sign out</a></li>
+</ul>
+{%else%}
+<ul class="dropdown-menu text-small" style="">
+    <li><a class="dropdown-item" href="/login">sign_up</a></li>
+</ul>
+{% endif %}
+{% endblock %}
 {% block main%}
 {% if musik %}
 
@@ -11,19 +26,13 @@
             {% for mus in musik %}
             <div class="col">
                 <div class="card shadow-sm">
-                    <img src="photo.jpeg" class="bd-placeholder-img card-img-top" width="100%" height="225"
+                    <img src="/static/img/{{ mus.photo_musiks }}" class="bd-placeholder-img card-img-top" width="100%" height="225"
                          alt="Placeholder image">
                     <div class="card-body">
-                        <p class="card-text"><a href="#">{{mus}}</a></p>
-                        <div class="form-check">
-                            <form method="post">
-                            {% if like == "true"%}
-                                <button type="submit">/</button>
-                            {% else %}
-                                <button type="submit">//</button>
-                            {% endif %}
-                            </form>
-                        </div>
+                        <p class="card-text">{{mus.name_musiks}}</p>
+                        <audio controls>
+                            <source src="/static/musik/{{ mus.file_musiks }}">
+                        </audio>
                     </div>
                 </div>
             </div>
