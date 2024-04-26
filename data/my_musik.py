@@ -4,7 +4,6 @@ from .db_session import SqlalachemyBase
 
 class Musiks_Like(SqlalachemyBase):
     __tablename__ = "musiks_like"
-
     id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, autoincrement=True)
     name_musiks = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey("musiks.name_musiks"))
     file_musiks = sqlalchemy.Column(sqlalchemy.String, sqlalchemy.ForeignKey("musiks.file_musiks"))

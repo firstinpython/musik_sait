@@ -1,7 +1,7 @@
 import datetime
 import sqlalchemy
 from .db_session import SqlalachemyBase
-from .Like_musik import Musiks_Like
+from .my_musik import Musiks_Like
 
 class User(SqlalachemyBase):
     __tablename__ = "users"

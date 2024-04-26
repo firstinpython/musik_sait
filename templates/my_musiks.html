@@ -15,9 +15,54 @@
 {% endif %}
 {% endblock %}
 {% block main %}
-{% if user_musik %}
-{% for musik in user_musik %}
-<p>{{musik.name_musiks}}</p>
-{% endfor %}
+{% if superuser=="yes" %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
+            {% for musik in user_musik %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <form method="post">
+                    <img src="/static/img/{{ musik.photo_musiks }}" class="bd-placeholder-img card-img-top" width="100%" height="225"
+                         alt="Placeholder image">
+                    <div class="card-body">
+                        <input class="card-text" name = "namemusik" value="{{musik.name_musiks}}">
+                        <audio controls>
+                            <source src="/static/musik/{{ musik.file_musiks }}">
+                        </audio><br>
+                        <button type="submit" name = "delete">Удалить</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            {% endfor%}
+        </div>
+    </div>
+</div>
+{%endif%}
+{% if user_musik and superuser == "not" %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1">
+            {% for musik in user_musik %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="/static/img/{{ musik.photo_musiks }}" class="bd-placeholder-img card-img-top" width="100%" height="225"
+                         alt="Placeholder image">
+                    <div class="card-body">
+                        <p class="card-text">{{musik.name_musiks}}</p>
+                        <audio controls>
+                            <source src="/static/musik/{{ musik.file_musiks }}">
+                        </audio>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor%}
+        </div>
+    </div>
+</div>
+{% else %}
+<h1> Вы не добовляли музыки</h1>
 {% endif %}
 {% endblock %}

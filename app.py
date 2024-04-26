@@ -2,11 +2,11 @@ from flask import Flask,render_template,request,redirect,url_for,session,flash
 from data import db_session
 from data.users import User
 from data.musiks import Musiks
-from validators import mp_val,random_musik,photo_val
-from data.Like_musik import Musiks_Like
+from validators import mp_val,photo_val
+from data.my_musik import Musiks_Like
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'flflflffl'
+app.config['SECRET_KEY'] = 'ifbiwfbrb'
 UPLOAD_FOLDER = '/musik/'
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 @app.route("/",methods=["POST","GET"])
@@ -14,29 +14,18 @@ def main():
     db_sess = db_session.create_session()
     user = db_sess.query(User).all()
     musik = db_sess.query(Musiks).all()
-    for el in musik:
-        print(el.file_musiks)
     musik_mass = musik
     if request.method == "POST":
-        #like = db_sess.query(Musiks_Like).filter_by(name = )
-        print(request.content_encoding)
         return render_template('main.html', usernames=user, musik=musik_mass)
     else:
         like="f"
         stage_user = "not sign"
         if "name" in session:
             title = "Voshel"
-            print("ok")
             user = db_sess.query(User).filter_by(name = session["name"]).first()
             stage_user = "sign"
-            if user:
-                musik_liking = db_sess.query(Musiks_Like).filter_by(user_id=user.id).all()
-                for fg in musik_liking:
-                    if fg.like_musik == 1:
-                        print(fg.name_musiks)
         else:
             title = "Musik"
-            print("ne ok")
 
         return render_template('main.html',usernames = user,musik = musik_mass,like = like,stage_user = stage_user)
 
@@ -47,11 +36,15 @@ def login():
         session.permanent = False
         db_sess = db_session.create_session()
         username = request.form['username']
+        password = request.form['password']
         search = db_sess.query(User).filter_by(name = username).first()
         if search:
-            session["name"] = username
-            session["email"] = search.email
-            return redirect(url_for("main"))
+            if search.name == username and password == search.hash_password:
+                session["name"] = username
+                session["email"] = search.email
+                return redirect(url_for("main"))
+            else:
+                return redirect(url_for("login"))
         else:
             return redirect(url_for("login"))
     else:
@@ -80,10 +73,12 @@ def admin():
 def user():
     stage_user = "not_sign"
     if "name" in session:
+        print(session["email"],session['name'])
         name = session["name"]
         db = db_session.create_session()
         user = db.query(User).filter_by(name = name).first()
         stage_user = "sign"
+        email = session["email"]
         method = "get"
         if request.method == "POST":
             file = request.files['file']
@@ -101,23 +96,38 @@ def user():
                 method = "post"
             else:
                 flash("файл должен быть с расширением mp3")
-                print("no")
-
-
-        return render_template("user.html", name=name,stage_user = stage_user)
+        return render_template("user.html", name=name,stage_user = stage_user, email = email)
     else:
         return redirect(url_for("login"))
-@app.route("/select_musiks")
+@app.route("/select_musiks",methods = ["POST","GET"])
 def select_musiks():
-    stage_user = "not sign"
     if "email" in session:
-        stage_user = "sign"
-        db_sess = db_session.create_session()
-        user = db_sess.query(User).filter_by(email = session["email"]).first()
-        user_musik = db_sess.query(Musiks_Like).filter_by(user_id = user.id).all()
-        return render_template("my_musiks.html",user_musik = user_musik,stage_user = stage_user)
+        if session["name"] == "admin":
+            superuser = "yes"
+            stage_user = "sign"
+            db_sess = db_session.create_session()
+            user_musik = db_sess.query(Musiks_Like).all()
+            if request.method == 'POST':
+                for el in request.values:
+                    if el=="delete":
+                        db_sess = db_session.create_session()
+                        musikdb = db_sess.query(Musiks).filter(Musiks.name_musiks == request.form['namemusik']).first()
+                        user_musik_del = db_sess.query(Musiks_Like).filter(Musiks_Like.name_musiks == request.form['namemusik']).first()
+                        if musikdb:
+                            db_sess.delete(musikdb)
+                            db_sess.delete(user_musik_del)
+                            db_sess.commit()
+                            user_musik = db_sess.query(Musiks_Like).all()
+        else:
+            superuser = "not"
+            stage_user = "sign"
+            db_sess = db_session.create_session()
+            user = db_sess.query(User).filter_by(email=session["email"]).first()
+            user_musik = db_sess.query(Musiks_Like).filter_by(user_id=user.id).all()
+
+        return render_template("my_musiks.html",user_musik = user_musik,stage_user = stage_user,superuser = superuser)
     else:
-        return render_template("login.html")
+        return redirect(url_for('login'))
 @app.route("/exit")
 def exit():
     session.pop("name",None)
@@ -125,7 +135,7 @@ def exit():
     return redirect(url_for('main'))
 @app.errorhandler(404)
 def not_found(error):
-    return "ничего не нашлось"
+    return render_template("not_found.html")
 
 
 if __name__ == "__main__":
